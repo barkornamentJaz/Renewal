@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CertTrack — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── Reset & Variables ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #0d1b2a;
+      --navy-mid:  #132237;
+      --navy-soft: #1c3050;
+      --amber:     #f4a826;
+      --amber-dim: #c4841c;
+      --teal:      #2ec4b6;
+      --rose:      #e05c5c;
+      --green:     #3ecf8e;
+      --text:      #e8edf3;
+      --text-dim:  #8a9ab5;
+      --border:    rgba(255,255,255,0.07);
+      --card:      rgba(255,255,255,0.04);
+      --card-hover:rgba(255,255,255,0.08);
+      --radius:    12px;
+      --shadow:    0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* ── Sidebar ─────────────────────────────────────── */
+    .sidebar {
+      width: 240px;
+      min-height: 100vh;
+      background: var(--navy-mid);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 100;
+    }
+
+    .sidebar-logo {
+      padding: 28px 24px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-logo .brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--amber);
+      letter-spacing: -0.5px;
+    }
+    .sidebar-logo .tagline {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-top: 2px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .nav { padding: 16px 0; flex: 1; }
+    .nav-label {
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 10px 24px 6px;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 24px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 400;
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .nav-link:hover { color: var(--text); background: var(--card); }
+    .nav-link.active {
+      color: var(--amber);
+      border-left-color: var(--amber);
+      background: rgba(244,168,38,0.07);
+    }
+    .nav-link .icon { font-size: 1rem; width: 18px; text-align: center; }
+
+    .sidebar-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+
+    /* ── Main Content ─────────────────────────────────── */
+    .main {
+      margin-left: 240px;
+      flex: 1;
+      min-height: 100vh;
+      padding: 32px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .page-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: var(--text);
+    }
+    .page-subtitle {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--amber);
+      color: var(--navy);
+    }
+    .btn-primary:hover { background: var(--amber-dim); }
+
+    /* ── Stat Cards ───────────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .stat-card.total::before   { background: var(--teal); }
+    .stat-card.active::before  { background: var(--green); }
+    .stat-card.warning::before { background: var(--amber); }
+    .stat-card.danger::before  { background: var(--rose); }
+
+    .stat-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+    .stat-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .stat-card.total   .stat-value { color: var(--teal); }
+    .stat-card.active  .stat-value { color: var(--green); }
+    .stat-card.warning .stat-value { color: var(--amber); }
+    .stat-card.danger  .stat-value { color: var(--rose); }
+
+    .stat-icon {
+      position: absolute;
+      right: 18px;
+      top: 18px;
+      font-size: 1.6rem;
+      opacity: 0.15;
+    }
+
+    /* ── Two-column layout ────────────────────────────── */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+    }
+
+    /* ── Card base ────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .card-body { padding: 0; }
+
+    /* ── Upcoming Table ───────────────────────────────── */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+    }
+    thead tr { background: rgba(255,255,255,0.03); }
+    th {
+      padding: 10px 16px;
+      text-align: left;
+      font-size: 0.7rem;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    td {
+      padding: 13px 16px;
+      border-top: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: middle;
+    }
+    tr:hover td { background: var(--card-hover); }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .badge-active   { background: rgba(62,207,142,0.15); color: var(--green); }
+    .badge-warning  { background: rgba(244,168,38,0.15); color: var(--amber); }
+    .badge-danger   { background: rgba(224,92,92,0.15);  color: var(--rose); }
+
+    .days-chip {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .days-chip.ok  { background: rgba(62,207,142,0.15); color: var(--green); }
+    .days-chip.warn{ background: rgba(244,168,38,0.18); color: var(--amber); }
+    .days-chip.bad { background: rgba(224,92,92,0.15);  color: var(--rose); }
+
+    /* ── Category breakdown ───────────────────────────── */
+    .cat-list { padding: 8px 0; }
+    .cat-row {
+      display: flex;
+      align-items: center;
+      padding: 10px 22px;
+      border-top: 1px solid var(--border);
+      gap: 12px;
+    }
+    .cat-name { flex: 1; font-size: 0.85rem; color: var(--text); }
+    .cat-count {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--amber);
+    }
+    .cat-bar-wrap {
+      width: 80px;
+      height: 5px;
+      background: var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .cat-bar {
+      height: 100%;
+      background: var(--amber);
+      border-radius: 10px;
+      transition: width 0.8s ease;
+    }
+
+    /* ── Loading / Empty ──────────────────────────────── */
+    .loading-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      color: var(--text-dim);
+      gap: 12px;
+    }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--amber);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .empty-msg {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+    }
+    .empty-msg .emoji { font-size: 2rem; margin-bottom: 8px; }
+
+    /* ── Toast ────────────────────────────────────────── */
+    #toast {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      background: var(--navy-soft);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 0.85rem;
+      color: var(--text);
+      display: none;
+      z-index: 9999;
+      box-shadow: var(--shadow);
+    }
+
+    /* ── Responsive ──────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .content-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .sidebar { width: 60px; }
+      .sidebar-logo .brand, .sidebar-logo .tagline,
+      .nav-label, .nav-link span, .sidebar-footer { display: none; }
+      .nav-link { justify-content: center; padding: 12px; }
+      .main { margin-left: 60px; padding: 20px 14px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Sidebar ──────────────────────────────────────────── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">CertTrack</div>
+    <div class="tagline">Renewal Management</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-label">Main</div>
+    <a href="index.html" class="nav-link active">
+      <span class="icon">📊</span><span>Dashboard</span>
+    </a>
+    <a href="certificates.html" class="nav-link">
+      <span class="icon">📋</span><span>Certificates</span>
+    </a>
+    <a href="add-certificate.html" class="nav-link">
+      <span class="icon">➕</span><span>Add Certificate</span>
+    </a>
+    <div class="nav-label" style="margin-top:8px">Coming Soon</div>
+    <a href="#" class="nav-link" style="opacity:.45;pointer-events:none">
+      <span class="icon">🔄</span><span>Renew</span>
+    </a>
+    <a href="#" class="nav-link" style="opacity:.45;pointer-events:none">
+      <span class="icon">⚠️</span><span>Expired</span>
+    </a>
+    <a href="#" class="nav-link" style="opacity:.45;pointer-events:none">
+      <span class="icon">📜</span><span>History</span>
+    </a>
+  </nav>
+  <div class="sidebar-footer">Phase 1 · v1.0</div>
+</aside>
+
+<!-- ── Main ─────────────────────────────────────────────── -->
+<main class="main">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Dashboard</div>
+      <div class="page-subtitle" id="dateStamp"></div>
+    </div>
+    <a href="add-certificate.html" class="btn btn-primary">
+      ➕ Add Certificate
+    </a>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="stats-grid">
+    <div class="stat-card total">
+      <div class="stat-icon">🗂️</div>
+      <div class="stat-label">Total Certificates</div>
+      <div class="stat-value" id="s-total">—</div>
+    </div>
+    <div class="stat-card active">
+      <div class="stat-icon">✅</div>
+      <div class="stat-label">Active</div>
+      <div class="stat-value" id="s-active">—</div>
+    </div>
+    <div class="stat-card warning">
+      <div class="stat-icon">⏰</div>
+      <div class="stat-label">Expiring Soon</div>
+      <div class="stat-value" id="s-expiring">—</div>
+    </div>
+    <div class="stat-card danger">
+      <div class="stat-icon">🚨</div>
+      <div class="stat-label">Expired</div>
+      <div class="stat-value" id="s-expired">—</div>
+    </div>
+  </div>
+
+  <!-- Content Grid -->
+  <div class="content-grid">
+    <!-- Upcoming Renewals -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">⏳ Upcoming Renewals (Next 30 Days)</div>
+        <a href="certificates.html" style="font-size:0.78rem;color:var(--amber);text-decoration:none">View All →</a>
+      </div>
+      <div class="card-body">
+        <div id="upcoming-container">
+          <div class="loading-wrap"><div class="spinner"></div><span>Loading...</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- By Category -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">📁 By Category</div>
+      </div>
+      <div class="cat-list" id="category-container">
+        <div class="loading-wrap"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<script>
+  // ── CONFIG ─────────────────────────────────────────────────
+  const API_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; // <-- Paste your Web App URL
+
+  // ── Utilities ──────────────────────────────────────────────
+  function formatDate(str) {
+    if (!str) return "—";
+    const d = new Date(str);
+    return isNaN(d) ? str : d.toLocaleDateString("en-GB", { day:"2-digit", month:"short", year:"numeric" });
+  }
+
+  function daysUntil(str) {
+    if (!str) return null;
+    const today = new Date(); today.setHours(0,0,0,0);
+    const exp   = new Date(str); exp.setHours(0,0,0,0);
+    return Math.ceil((exp - today) / 86400000);
+  }
+
+  function showToast(msg, ok = true) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    t.style.borderColor = ok ? "var(--green)" : "var(--rose)";
+    setTimeout(() => { t.style.display = "none"; }, 3500);
+  }
+
+  // ── Date stamp ─────────────────────────────────────────────
+  document.getElementById("dateStamp").textContent =
+    new Date().toLocaleDateString("en-GB", { weekday:"long", day:"numeric", month:"long", year:"numeric" });
+
+  // ── Fetch Dashboard ─────────────────────────────────────────
+  async function loadDashboard() {
+    try {
+      const res  = await fetch(`${API_URL}?action=getDashboard`);
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || "Failed to load");
+
+      document.getElementById("s-total").textContent    = data.total;
+      document.getElementById("s-active").textContent   = data.active;
+      document.getElementById("s-expiring").textContent = data.expiringSoon;
+      document.getElementById("s-expired").textContent  = data.expired;
+
+      renderUpcoming(data.upcoming || []);
+      renderCategories(data.byCategory || {}, data.total);
+    } catch (err) {
+      showToast("⚠️ " + err.message, false);
+      document.getElementById("upcoming-container").innerHTML =
+        `<div class="empty-msg"><div class="emoji">⚠️</div>Could not connect to backend.<br>Check API_URL in script.</div>`;
+      document.getElementById("category-container").innerHTML =
+        `<div class="empty-msg" style="font-size:0.78rem">No data</div>`;
+    }
+  }
+
+  function renderUpcoming(rows) {
+    const wrap = document.getElementById("upcoming-container");
+    if (!rows.length) {
+      wrap.innerHTML = `<div class="empty-msg"><div class="emoji">🎉</div>No renewals due in the next 30 days!</div>`;
+      return;
+    }
+    wrap.innerHTML = `
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Certificate</th>
+              <th>Category</th>
+              <th>Responsible</th>
+              <th>Expiry Date</th>
+              <th>Days Left</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(r => {
+              const days   = daysUntil(r["Expiry Date"]);
+              const chipCls = days < 0 ? "bad" : days <= 15 ? "warn" : "ok";
+              const badge  = r["Status"] === "Active" ? "active" : r["Status"] === "Expiring Soon" ? "warning" : "danger";
+              return `<tr>
+                <td><strong>${r["Certificate Name"]}</strong></td>
+                <td>${r["Category"] || "—"}</td>
+                <td>${r["Responsible Person"] || "—"}</td>
+                <td>${formatDate(r["Expiry Date"])}</td>
+                <td><span class="days-chip ${chipCls}">${days >= 0 ? days + "d" : "Expired"}</span></td>
+                <td><span class="badge badge-${badge}">${r["Status"]}</span></td>
+              </tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  function renderCategories(cats, total) {
+    const wrap = document.getElementById("category-container");
+    const entries = Object.entries(cats).sort((a,b) => b[1] - a[1]);
+    if (!entries.length) {
+      wrap.innerHTML = `<div class="empty-msg" style="font-size:0.78rem">No data yet</div>`;
+      return;
+    }
+    wrap.innerHTML = entries.map(([name, count]) => {
+      const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+      return `<div class="cat-row">
+        <div class="cat-name">${name}</div>
+        <div class="cat-bar-wrap"><div class="cat-bar" style="width:${pct}%"></div></div>
+        <div class="cat-count">${count}</div>
+      </div>`;
+    }).join("");
+  }
+
+  // ── Init ───────────────────────────────────────────────────
+  loadDashboard();
+</script>
+</body>
+</html>
