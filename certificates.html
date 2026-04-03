@@ -3,206 +3,145 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CertTrack — Certificates</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <title>Bark Ornament Pvt Ltd — Certificates</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 
     :root {
-      --navy:      #0d1b2a;
-      --navy-mid:  #132237;
-      --navy-soft: #1c3050;
-      --amber:     #f4a826;
-      --amber-dim: #c4841c;
-      --teal:      #2ec4b6;
-      --rose:      #e05c5c;
-      --green:     #3ecf8e;
-      --text:      #e8edf3;
-      --text-dim:  #8a9ab5;
-      --border:    rgba(255,255,255,0.07);
-      --card:      rgba(255,255,255,0.04);
-      --card-hover:rgba(255,255,255,0.07);
-      --radius:    12px;
-      --shadow:    0 4px 24px rgba(0,0,0,.35);
+      --bg:          #f0f2f5;
+      --surface:     #ffffff;
+      --surface-2:   #f8f9fb;
+      --sidebar-bg:  #ffffff;
+      --amber:       #f4a826;
+      --amber-dark:  #d4891a;
+      --amber-light: #fff5e0;
+      --brown:       #2b1a06;
+      --teal:        #0891b2;
+      --rose:        #dc2626;
+      --green:       #16a34a;
+      --text:        #111827;
+      --text-mid:    #374151;
+      --text-dim:    #6b7280;
+      --border:      #e5e7eb;
+      --border-light:#f3f4f6;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+      --shadow:      0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg:   0 10px 32px rgba(0,0,0,0.10);
+      --radius:      12px;
+      --radius-sm:   8px;
     }
 
-    body { font-family:'DM Sans',sans-serif; background:var(--navy); color:var(--text); min-height:100vh; display:flex; }
+    body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
 
     /* Sidebar */
-    .sidebar { width:240px; min-height:100vh; background:var(--navy-mid); border-right:1px solid var(--border); display:flex; flex-direction:column; position:fixed; top:0; left:0; z-index:100; }
-    .sidebar-logo { padding:28px 24px 20px; border-bottom:1px solid var(--border); }
-    .sidebar-logo .brand { font-family:'Syne',sans-serif; font-weight:800; font-size:1.3rem; color:var(--amber); }
-    .sidebar-logo .tagline { font-size:.7rem; color:var(--text-dim); margin-top:2px; letter-spacing:.8px; text-transform:uppercase; }
+    .sidebar { width:260px; min-height:100vh; background:var(--sidebar-bg); border-right:1px solid var(--border); display:flex; flex-direction:column; position:fixed; top:0; left:0; z-index:100; box-shadow:var(--shadow-sm); }
+    .sidebar-logo { padding:24px 22px 20px; border-bottom:1px solid var(--border-light); display:flex; align-items:center; gap:12px; }
+    .sidebar-logo img { width:46px; height:46px; object-fit:contain; border-radius:8px; }
+    .sidebar-logo .brand { font-weight:800; font-size:0.92rem; color:var(--brown); line-height:1.2; letter-spacing:-0.3px; }
+    .sidebar-logo .tagline { font-size:0.68rem; color:var(--text-dim); margin-top:2px; }
     .nav { padding:16px 0; flex:1; }
-    .nav-label { font-size:.65rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); padding:10px 24px 6px; }
-    .nav-link { display:flex; align-items:center; gap:10px; padding:10px 24px; color:var(--text-dim); text-decoration:none; font-size:.88rem; border-left:3px solid transparent; transition:all .2s; }
-    .nav-link:hover { color:var(--text); background:var(--card); }
-    .nav-link.active { color:var(--amber); border-left-color:var(--amber); background:rgba(244,168,38,.07); }
-    .nav-link .icon { font-size:1rem; width:18px; text-align:center; }
-    .sidebar-footer { padding:16px 24px; border-top:1px solid var(--border); font-size:.72rem; color:var(--text-dim); }
+    .nav-label { font-size:0.62rem; letter-spacing:1.4px; text-transform:uppercase; color:var(--text-dim); padding:10px 22px 6px; font-weight:600; }
+    .nav-link { display:flex; align-items:center; gap:10px; padding:10px 22px; color:var(--text-dim); text-decoration:none; font-size:0.865rem; font-weight:500; border-left:3px solid transparent; margin:1px 0; transition:all 0.18s; border-radius:0 6px 6px 0; }
+    .nav-link:hover { color:var(--text); background:var(--bg); }
+    .nav-link.active { color:var(--amber-dark); border-left-color:var(--amber); background:var(--amber-light); }
+    .nav-link .icon { font-size:1rem; width:20px; text-align:center; }
+    .sidebar-footer { padding:14px 22px; border-top:1px solid var(--border-light); font-size:0.7rem; color:var(--text-dim); }
 
     /* Main */
-    .main { margin-left:240px; flex:1; min-height:100vh; padding:32px; }
+    .main { margin-left:260px; flex:1; min-height:100vh; padding:32px 36px; }
 
-    .page-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:16px; }
-    .page-title { font-family:'Syne',sans-serif; font-weight:700; font-size:1.8rem; }
-    .page-subtitle { color:var(--text-dim); font-size:.85rem; margin-top:4px; }
+    .topbar { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid var(--border); flex-wrap:wrap; gap:16px; }
+    .page-title { font-weight:800; font-size:1.6rem; color:var(--brown); letter-spacing:-0.5px; }
+    .page-subtitle { color:var(--text-dim); font-size:0.82rem; margin-top:3px; }
 
-    .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.85rem; font-weight:500; cursor:pointer; text-decoration:none; transition:all .2s; border:none; }
-    .btn-primary { background:var(--amber); color:var(--navy); }
-    .btn-primary:hover { background:var(--amber-dim); }
-    .btn-sm { padding:6px 14px; font-size:.78rem; }
+    .btn { display:inline-flex; align-items:center; gap:7px; padding:10px 20px; border-radius:var(--radius-sm); font-family:'Plus Jakarta Sans',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer; text-decoration:none; transition:all 0.18s; border:none; }
+    .btn-primary { background:var(--amber); color:var(--brown); box-shadow:0 2px 8px rgba(244,168,38,0.35); }
+    .btn-primary:hover { background:var(--amber-dark); color:#fff; transform:translateY(-1px); }
+    .btn-sm { padding:6px 14px; font-size:0.78rem; }
     .btn-ghost { background:transparent; color:var(--text-dim); border:1px solid var(--border); }
-    .btn-ghost:hover { color:var(--text); }
-    .btn-danger { background:rgba(224,92,92,.15); color:var(--rose); border:1px solid rgba(224,92,92,.2); }
-    .btn-danger:hover { background:rgba(224,92,92,.25); }
+    .btn-ghost:hover { color:var(--text); border-color:#d1d5db; background:var(--surface-2); }
+    .btn-danger { background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5; }
+    .btn-danger:hover { background:#fecaca; }
 
     /* Toolbar */
-    .toolbar {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-    }
-    .search-wrap {
-      position: relative;
-      flex: 1;
-      min-width: 200px;
-    }
-    .search-wrap input {
-      width: 100%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 9px 14px 9px 38px;
-      color: var(--text);
-      font-family: 'DM Sans',sans-serif;
-      font-size: .88rem;
-      outline: none;
-      transition: all .2s;
-    }
-    .search-wrap input:focus { border-color:var(--amber); background:rgba(244,168,38,.07); }
+    .toolbar { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:18px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px; box-shadow:var(--shadow-sm); }
+    .search-wrap { position:relative; flex:1; min-width:200px; }
+    .search-wrap input { width:100%; background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:9px 14px 9px 38px; color:var(--text); font-family:'Plus Jakarta Sans',sans-serif; font-size:0.88rem; outline:none; transition:all 0.18s; }
+    .search-wrap input:focus { border-color:var(--amber); background:#fffdf7; box-shadow:0 0 0 3px rgba(244,168,38,0.12); }
     .search-wrap input::placeholder { color:var(--text-dim); }
-    .search-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); font-size:.9rem; opacity:.5; }
+    .search-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); font-size:0.9rem; opacity:0.45; }
 
-    select.filter {
-      background: rgba(255,255,255,.06);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 9px 14px;
-      color: var(--text);
-      font-family: 'DM Sans',sans-serif;
-      font-size: .85rem;
-      outline: none;
-      cursor: pointer;
-      transition: all .2s;
-    }
-    select.filter:focus { border-color: var(--amber); }
-    select.filter option { background: var(--navy-mid); }
+    select.filter { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:9px 14px; color:var(--text); font-family:'Plus Jakarta Sans',sans-serif; font-size:0.85rem; outline:none; cursor:pointer; transition:all 0.18s; }
+    select.filter:focus { border-color:var(--amber); }
+    select.filter option { background:var(--surface); }
 
-    .result-count { font-size:.8rem; color:var(--text-dim); white-space:nowrap; }
+    .result-count { font-size:0.8rem; color:var(--text-dim); white-space:nowrap; font-weight:500; }
 
     /* Table Card */
-    .table-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+    .table-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-sm); }
     .table-wrap { overflow-x:auto; }
 
-    table { width:100%; border-collapse:collapse; font-size:.84rem; }
-    thead tr { background:rgba(255,255,255,.03); }
-    th {
-      padding: 12px 16px;
-      text-align: left;
-      font-size: .7rem;
-      letter-spacing: .8px;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      font-weight: 500;
-      white-space: nowrap;
-      cursor: pointer;
-      user-select: none;
-      transition: color .2s;
-    }
-    th:hover { color: var(--amber); }
-    th .sort-icon { opacity:.4; font-size:.7rem; margin-left:3px; }
-    th.sorted .sort-icon { opacity:1; color:var(--amber); }
+    table { width:100%; border-collapse:collapse; font-size:0.84rem; }
+    thead tr { background:var(--surface-2); }
+    th { padding:12px 16px; text-align:left; font-size:0.68rem; letter-spacing:0.8px; text-transform:uppercase; color:var(--text-dim); font-weight:700; white-space:nowrap; cursor:pointer; user-select:none; border-bottom:1px solid var(--border); transition:color 0.18s; }
+    th:hover { color:var(--amber-dark); }
+    th .sort-icon { opacity:0.4; font-size:0.7rem; margin-left:3px; }
+    th.sorted .sort-icon { opacity:1; color:var(--amber-dark); }
 
-    td { padding:14px 16px; border-top:1px solid var(--border); color:var(--text); vertical-align:middle; }
-    tr:hover td { background:var(--card-hover); }
+    td { padding:14px 16px; border-bottom:1px solid var(--border-light); color:var(--text-mid); vertical-align:middle; }
+    tr:last-child td { border-bottom:none; }
+    tbody tr:hover td { background:#fafbfc; }
 
-    .cert-name { font-weight:500; margin-bottom:2px; }
-    .cert-sub  { font-size:.75rem; color:var(--text-dim); }
+    .cert-name { font-weight:600; margin-bottom:2px; color:var(--text); }
+    .cert-sub  { font-size:0.75rem; color:var(--text-dim); }
 
-    .badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:.7rem; font-weight:500; letter-spacing:.3px; white-space:nowrap; }
-    .badge-active  { background:rgba(62,207,142,.15); color:var(--green); }
-    .badge-warning { background:rgba(244,168,38,.15);  color:var(--amber); }
-    .badge-danger  { background:rgba(224,92,92,.15);   color:var(--rose); }
-    .badge-unknown { background:rgba(138,154,181,.12); color:var(--text-dim); }
+    .badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.68rem; font-weight:700; letter-spacing:0.3px; white-space:nowrap; }
+    .badge-active  { background:#dcfce7; color:#15803d; }
+    .badge-warning { background:#fef3c7; color:#b45309; }
+    .badge-danger  { background:#fee2e2; color:#b91c1c; }
+    .badge-unknown { background:#f3f4f6; color:#6b7280; }
 
-    .days-chip { display:inline-block; padding:3px 8px; border-radius:6px; font-size:.74rem; font-weight:600; }
-    .days-ok   { background:rgba(62,207,142,.15); color:var(--green); }
-    .days-warn { background:rgba(244,168,38,.18);  color:var(--amber); }
-    .days-bad  { background:rgba(224,92,92,.15);   color:var(--rose); }
+    .days-chip { display:inline-block; padding:3px 9px; border-radius:6px; font-size:0.74rem; font-weight:700; }
+    .days-ok   { background:#dcfce7; color:#15803d; }
+    .days-warn { background:#fef3c7; color:#b45309; }
+    .days-bad  { background:#fee2e2; color:#b91c1c; }
 
     .action-cell { display:flex; gap:6px; }
 
     /* Empty/Loading */
     .loading-wrap { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:60px 20px; color:var(--text-dim); gap:12px; }
-    .spinner { width:36px; height:36px; border:3px solid var(--border); border-top-color:var(--amber); border-radius:50%; animation:spin .8s linear infinite; }
+    .spinner { width:32px; height:32px; border:3px solid var(--border); border-top-color:var(--amber); border-radius:50%; animation:spin 0.8s linear infinite; }
     @keyframes spin { to { transform:rotate(360deg); } }
     .empty-msg { text-align:center; padding:50px 20px; color:var(--text-dim); }
     .empty-msg .emoji { font-size:2.5rem; margin-bottom:10px; }
-    .empty-msg p { font-size:.88rem; }
+    .empty-msg p { font-size:0.88rem; }
 
     /* Modal */
-    .modal-overlay {
-      display: none;
-      position: fixed; inset:0;
-      background: rgba(0,0,0,.6);
-      backdrop-filter: blur(4px);
-      z-index: 999;
-      align-items: center;
-      justify-content: center;
-    }
+    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); backdrop-filter:blur(4px); z-index:999; align-items:center; justify-content:center; }
     .modal-overlay.open { display:flex; }
-    .modal {
-      background: var(--navy-mid);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 0;
-      width: 90%;
-      max-width: 600px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: var(--shadow);
-      animation: modalIn .2s ease;
-    }
+    .modal { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:0; width:90%; max-width:600px; max-height:90vh; overflow-y:auto; box-shadow:var(--shadow-lg); animation:modalIn .2s ease; }
     @keyframes modalIn { from { opacity:0; transform:translateY(12px) scale(.98); } }
-    .modal-header {
-      display:flex; align-items:center; justify-content:space-between;
-      padding:20px 24px; border-bottom:1px solid var(--border);
-    }
-    .modal-title { font-family:'Syne',sans-serif; font-weight:700; font-size:1.1rem; }
-    .modal-close { background:none; border:none; color:var(--text-dim); font-size:1.4rem; cursor:pointer; line-height:1; }
-    .modal-close:hover { color:var(--text); }
+    .modal-header { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--border); background:var(--surface-2); }
+    .modal-title { font-weight:800; font-size:1.1rem; color:var(--brown); }
+    .modal-close { background:none; border:none; cursor:pointer; color:var(--text-dim); font-size:1.4rem; line-height:1; padding:4px; border-radius:6px; transition:all 0.15s; }
+    .modal-close:hover { background:var(--bg); color:var(--text); }
     .modal-body { padding:24px; }
     .detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    .detail-item label { display:block; font-size:.7rem; letter-spacing:.8px; text-transform:uppercase; color:var(--text-dim); margin-bottom:4px; }
-    .detail-item .val { font-size:.88rem; color:var(--text); word-break:break-all; }
+    .detail-item label { display:block; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--text-dim); margin-bottom:4px; }
+    .detail-item .val { font-size:0.88rem; color:var(--text); font-weight:500; }
     .detail-item.full { grid-column:1/-1; }
 
     /* Toast */
-    #toast { position:fixed; bottom:24px; right:24px; background:var(--navy-soft); border:1px solid var(--border); border-radius:10px; padding:12px 20px; font-size:.85rem; color:var(--text); display:none; z-index:9999; box-shadow:var(--shadow); }
+    #toast { position:fixed; bottom:24px; right:24px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 20px; font-size:0.85rem; color:var(--text); display:none; z-index:9999; box-shadow:var(--shadow-lg); }
 
-    @media(max-width:900px) { .detail-grid { grid-template-columns:1fr; } }
+    @media(max-width:1000px) { .main { padding:24px 20px; } }
     @media(max-width:700px) {
-      .sidebar { width:60px; }
-      .sidebar-logo .brand,.sidebar-logo .tagline,.nav-label,.nav-link span,.sidebar-footer { display:none; }
+      .sidebar { width:62px; }
+      .sidebar-logo img { width:36px; height:36px; }
+      .sidebar-logo .brand-text, .nav-label, .nav-link span, .sidebar-footer { display:none; }
       .nav-link { justify-content:center; padding:12px; }
-      .main { margin-left:60px; padding:20px 14px; }
+      .main { margin-left:62px; padding:20px 14px; }
     }
   </style>
 </head>
@@ -210,8 +149,11 @@
 
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <div class="brand">CertTrack</div>
-    <div class="tagline">Renewal Management</div>
+    <img src="bark-ornament-logo.jpg" alt="Bark Ornament Logo"/>
+    <div class="brand-text">
+      <div class="brand">Bark Ornament<br>Private Limited</div>
+      <div class="tagline">Certificate Management</div>
+    </div>
   </div>
   <nav class="nav">
     <div class="nav-label">Main</div>
@@ -219,18 +161,18 @@
     <a href="certificates.html" class="nav-link active"><span class="icon">📋</span><span>Certificates</span></a>
     <a href="add-certificate.html" class="nav-link"><span class="icon">➕</span><span>Add Certificate</span></a>
     <div class="nav-label" style="margin-top:8px">Coming Soon</div>
-    <a href="#" class="nav-link" style="opacity:.45;pointer-events:none"><span class="icon">🔄</span><span>Renew</span></a>
-    <a href="#" class="nav-link" style="opacity:.45;pointer-events:none"><span class="icon">⚠️</span><span>Expired</span></a>
-    <a href="#" class="nav-link" style="opacity:.45;pointer-events:none"><span class="icon">📜</span><span>History</span></a>
+    <a href="#" class="nav-link" style="opacity:.4;pointer-events:none"><span class="icon">🔄</span><span>Renew</span></a>
+    <a href="#" class="nav-link" style="opacity:.4;pointer-events:none"><span class="icon">⚠️</span><span>Expired</span></a>
+    <a href="#" class="nav-link" style="opacity:.4;pointer-events:none"><span class="icon">📜</span><span>History</span></a>
   </nav>
   <div class="sidebar-footer">Phase 1 · v1.0</div>
 </aside>
 
 <main class="main">
-  <div class="page-header">
+  <div class="topbar">
     <div>
-      <div class="page-title">Certificates</div>
-      <div class="page-subtitle">All registered company certificates</div>
+      <div class="page-title">All Certificates</div>
+      <div class="page-subtitle">Manage and track all company certificates</div>
     </div>
     <a href="add-certificate.html" class="btn btn-primary">➕ Add Certificate</a>
   </div>
@@ -239,10 +181,10 @@
   <div class="toolbar">
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
-      <input type="text" id="searchInput" placeholder="Search by name, number, responsible person..." oninput="filterTable()"/>
+      <input type="text" id="searchInput" placeholder="Search by name, number, person…" oninput="filterTable()"/>
     </div>
     <select class="filter" id="statusFilter" onchange="filterTable()">
-      <option value="">All Status</option>
+      <option value="">All Statuses</option>
       <option value="Active">Active</option>
       <option value="Expiring Soon">Expiring Soon</option>
       <option value="Expired">Expired</option>
@@ -250,16 +192,13 @@
     <select class="filter" id="catFilter" onchange="filterTable()">
       <option value="">All Categories</option>
     </select>
-    <button class="btn btn-ghost btn-sm" onclick="loadCertificates()">🔄 Refresh</button>
-    <span class="result-count" id="resultCount"></span>
+    <span class="result-count" id="resultCount">Loading…</span>
   </div>
 
-  <!-- Table -->
+  <!-- Table Card -->
   <div class="table-card">
-    <div class="table-wrap">
-      <div id="tableContainer">
-        <div class="loading-wrap"><div class="spinner"></div><span>Loading certificates...</span></div>
-      </div>
+    <div class="table-wrap" id="tableContainer">
+      <div class="loading-wrap"><div class="spinner"></div><span>Loading certificates…</span></div>
     </div>
   </div>
 </main>
@@ -278,11 +217,8 @@
 <div id="toast"></div>
 
 <script>
-  const API_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; // <-- Paste your Web App URL
-
-  let allCerts = [];
-  let sortCol  = "";
-  let sortAsc  = true;
+  const API_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+  let allCerts = [], sortCol = "", sortAsc = true;
 
   function formatDate(str) {
     if (!str) return "—";
@@ -308,14 +244,13 @@
     const t = document.getElementById("toast");
     t.textContent = msg;
     t.style.display = "block";
-    t.style.borderColor = ok ? "var(--green)" : "var(--rose)";
+    t.style.borderColor = ok ? "#16a34a" : "#dc2626";
     setTimeout(() => { t.style.display = "none"; }, 4000);
   }
 
-  // ── Load ──────────────────────────────────────────────────
   async function loadCertificates() {
     document.getElementById("tableContainer").innerHTML =
-      `<div class="loading-wrap"><div class="spinner"></div><span>Loading...</span></div>`;
+      `<div class="loading-wrap"><div class="spinner"></div><span>Loading certificates…</span></div>`;
     try {
       const res  = await fetch(`${API_URL}?action=getCertificates`);
       const data = await res.json();
@@ -336,18 +271,13 @@
       cats.map(c => `<option value="${c}">${c}</option>`).join("");
   }
 
-  // ── Filter ─────────────────────────────────────────────────
   function filterTable() {
     const q      = document.getElementById("searchInput").value.toLowerCase();
     const status = document.getElementById("statusFilter").value;
     const cat    = document.getElementById("catFilter").value;
-
     const filtered = allCerts.filter(r => {
-      const matchQ = !q || [
-        r["Certificate Name"], r["Certificate Number"],
-        r["Responsible Person"], r["Issued By"], r["Category"]
-      ].some(v => v && String(v).toLowerCase().includes(q));
-
+      const matchQ = !q || [r["Certificate Name"], r["Certificate Number"], r["Responsible Person"], r["Issued By"], r["Category"]]
+        .some(v => v && String(v).toLowerCase().includes(q));
       const matchS = !status || r["Status"] === status;
       const matchC = !cat    || r["Category"] === cat;
       return matchQ && matchS && matchC;
@@ -355,14 +285,12 @@
     renderTable(filtered);
   }
 
-  // ── Sort ───────────────────────────────────────────────────
   function sortBy(col) {
     if (sortCol === col) sortAsc = !sortAsc;
     else { sortCol = col; sortAsc = true; }
     filterTable();
   }
 
-  // ── Render ─────────────────────────────────────────────────
   function renderTable(rows) {
     document.getElementById("resultCount").textContent =
       `${rows.length} certificate${rows.length !== 1 ? "s" : ""}`;
@@ -373,7 +301,6 @@
       return;
     }
 
-    // Sort
     if (sortCol) {
       rows = [...rows].sort((a,b) => {
         let va = a[sortCol] || ""; let vb = b[sortCol] || "";
@@ -385,14 +312,14 @@
     }
 
     const cols = [
-      { label:"Certificate",    key:"Certificate Name",    sort:true },
-      { label:"Category",       key:"Category",            sort:true },
-      { label:"Cert. Number",   key:"Certificate Number",  sort:false },
-      { label:"Expiry Date",    key:"Expiry Date",         sort:true },
-      { label:"Days Left",      key:"__days",              sort:false },
-      { label:"Status",         key:"Status",              sort:true },
-      { label:"Responsible",    key:"Responsible Person",  sort:true },
-      { label:"Actions",        key:"__actions",           sort:false }
+      { label:"Certificate",   key:"Certificate Name",   sort:true },
+      { label:"Category",      key:"Category",           sort:true },
+      { label:"Cert. Number",  key:"Certificate Number", sort:false },
+      { label:"Expiry Date",   key:"Expiry Date",        sort:true },
+      { label:"Days Left",     key:"__days",             sort:false },
+      { label:"Status",        key:"Status",             sort:true },
+      { label:"Responsible",   key:"Responsible Person", sort:true },
+      { label:"Actions",       key:"__actions",          sort:false }
     ];
 
     const thead = `<thead><tr>${cols.map(c => {
@@ -407,11 +334,10 @@
       const days = daysUntil(r["Expiry Date"]);
       const chipCls = days === null ? "" : days < 0 ? "days-bad" : days <= 30 ? "days-warn" : "days-ok";
       const daysLabel = days === null ? "—" : days < 0 ? "Expired" : days + " days";
-      const status    = r["Status"] || "Unknown";
-      const docLink   = r["Document Link"]
+      const status = r["Status"] || "Unknown";
+      const docLink = r["Document Link"]
         ? `<a href="${r["Document Link"]}" target="_blank" class="btn btn-ghost btn-sm" title="Open Document">📎</a>`
         : "";
-
       return `<tr>
         <td>
           <div class="cert-name">${r["Certificate Name"] || "—"}</div>
@@ -435,14 +361,11 @@
       </tr>`;
     }).join("")}</tbody>`;
 
-    document.getElementById("tableContainer").innerHTML =
-      `<table>${thead}${tbody}</table>`;
+    document.getElementById("tableContainer").innerHTML = `<table>${thead}${tbody}</table>`;
   }
 
-  // ── Detail Modal ───────────────────────────────────────────
   function showDetail(r) {
     document.getElementById("modalTitle").textContent = r["Certificate Name"] || "Certificate Details";
-
     const fields = [
       ["Certificate ID",    r["Certificate ID"]],
       ["Category",          r["Category"]],
@@ -455,14 +378,13 @@
       ["Last Renewal Date", formatDate(r["Last Renewal Date"])],
       ["Next Reminder Date",formatDate(r["Next Reminder Date"])],
       ["Responsible Person",r["Responsible Person"]],
-      ["Email",             r["Email"] ? `<a href="mailto:${r["Email"]}" style="color:var(--amber)">${r["Email"]}</a>` : "—"],
+      ["Email",             r["Email"] ? `<a href="mailto:${r["Email"]}" style="color:var(--amber-dark)">${r["Email"]}</a>` : "—"],
       ["Phone",             r["Phone"]],
-      ["Document Link",     r["Document Link"] ? `<a href="${r["Document Link"]}" target="_blank" style="color:var(--amber)">Open Document 📎</a>` : "—"],
-      ["Remarks",           r["Remarks"],  true],
+      ["Document Link",     r["Document Link"] ? `<a href="${r["Document Link"]}" target="_blank" style="color:var(--amber-dark)">Open Document 📎</a>` : "—"],
+      ["Remarks",           r["Remarks"], true],
       ["Created Date",      formatDate(r["Created Date"])],
       ["Updated Date",      formatDate(r["Updated Date"])],
     ];
-
     document.getElementById("modalBody").innerHTML =
       `<div class="detail-grid">${fields.map(([label, val, full]) =>
         `<div class="detail-item${full ? " full" : ""}">
@@ -470,18 +392,14 @@
           <div class="val">${val || "—"}</div>
         </div>`
       ).join("")}</div>`;
-
     document.getElementById("detailModal").classList.add("open");
   }
 
-  function closeModal() {
-    document.getElementById("detailModal").classList.remove("open");
-  }
+  function closeModal() { document.getElementById("detailModal").classList.remove("open"); }
   document.getElementById("detailModal").addEventListener("click", e => {
     if (e.target === document.getElementById("detailModal")) closeModal();
   });
 
-  // ── Init ───────────────────────────────────────────────────
   loadCertificates();
 </script>
 </body>
