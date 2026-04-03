@@ -3,188 +3,176 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CertTrack — Add Certificate</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <title>Bark Ornament Pvt Ltd — Add Certificate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:      #0d1b2a;
-      --navy-mid:  #132237;
-      --navy-soft: #1c3050;
-      --amber:     #f4a826;
-      --amber-dim: #c4841c;
-      --teal:      #2ec4b6;
-      --rose:      #e05c5c;
-      --green:     #3ecf8e;
-      --text:      #e8edf3;
-      --text-dim:  #8a9ab5;
-      --border:    rgba(255,255,255,0.07);
-      --card:      rgba(255,255,255,0.04);
-      --radius:    12px;
-      --input-bg:  rgba(255,255,255,0.05);
-      --input-focus: rgba(244,168,38,0.15);
+      --bg:          #f0f2f5;
+      --surface:     #ffffff;
+      --surface-2:   #f8f9fb;
+      --sidebar-bg:  #ffffff;
+      --amber:       #f4a826;
+      --amber-dark:  #d4891a;
+      --amber-light: #fff5e0;
+      --brown:       #2b1a06;
+      --rose:        #dc2626;
+      --green:       #16a34a;
+      --text:        #111827;
+      --text-mid:    #374151;
+      --text-dim:    #6b7280;
+      --border:      #e5e7eb;
+      --border-light:#f3f4f6;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-lg:   0 10px 32px rgba(0,0,0,0.10);
+      --radius:      12px;
+      --radius-sm:   8px;
     }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--navy);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-    }
+    body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
 
     /* Sidebar */
-    .sidebar {
-      width: 240px; min-height: 100vh;
-      background: var(--navy-mid);
-      border-right: 1px solid var(--border);
-      display: flex; flex-direction: column;
-      position: fixed; top: 0; left: 0; z-index: 100;
-    }
-    .sidebar-logo { padding: 28px 24px 20px; border-bottom: 1px solid var(--border); }
-    .sidebar-logo .brand { font-family: 'Syne',sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--amber); }
-    .sidebar-logo .tagline { font-size: 0.7rem; color: var(--text-dim); margin-top: 2px; letter-spacing:.8px; text-transform:uppercase; }
-    .nav { padding: 16px 0; flex: 1; }
-    .nav-label { font-size:.65rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); padding:10px 24px 6px; }
-    .nav-link { display:flex; align-items:center; gap:10px; padding:10px 24px; color:var(--text-dim); text-decoration:none; font-size:.88rem; border-left:3px solid transparent; transition:all .2s; }
-    .nav-link:hover { color:var(--text); background:var(--card); }
-    .nav-link.active { color:var(--amber); border-left-color:var(--amber); background:rgba(244,168,38,.07); }
-    .nav-link .icon { font-size:1rem; width:18px; text-align:center; }
-    .sidebar-footer { padding:16px 24px; border-top:1px solid var(--border); font-size:.72rem; color:var(--text-dim); }
+    .sidebar { width:260px; min-height:100vh; background:var(--sidebar-bg); border-right:1px solid var(--border); display:flex; flex-direction:column; position:fixed; top:0; left:0; z-index:100; box-shadow:var(--shadow-sm); }
+    .sidebar-logo { padding:24px 22px 20px; border-bottom:1px solid var(--border-light); display:flex; align-items:center; gap:12px; }
+    .sidebar-logo img { width:46px; height:46px; object-fit:contain; border-radius:8px; }
+    .sidebar-logo .brand { font-weight:800; font-size:0.92rem; color:var(--brown); line-height:1.2; letter-spacing:-0.3px; }
+    .sidebar-logo .tagline { font-size:0.68rem; color:var(--text-dim); margin-top:2px; }
+    .nav { padding:16px 0; flex:1; }
+    .nav-label { font-size:0.62rem; letter-spacing:1.4px; text-transform:uppercase; color:var(--text-dim); padding:10px 22px 6px; font-weight:600; }
+    .nav-link { display:flex; align-items:center; gap:10px; padding:10px 22px; color:var(--text-dim); text-decoration:none; font-size:0.865rem; font-weight:500; border-left:3px solid transparent; margin:1px 0; transition:all 0.18s; border-radius:0 6px 6px 0; }
+    .nav-link:hover { color:var(--text); background:var(--bg); }
+    .nav-link.active { color:var(--amber-dark); border-left-color:var(--amber); background:var(--amber-light); }
+    .nav-link .icon { font-size:1rem; width:20px; text-align:center; }
+    .sidebar-footer { padding:14px 22px; border-top:1px solid var(--border-light); font-size:0.7rem; color:var(--text-dim); }
 
     /* Main */
-    .main { margin-left:240px; flex:1; min-height:100vh; padding:32px; max-width:960px; }
+    .main { margin-left:260px; flex:1; min-height:100vh; padding:32px 36px; max-width:calc(960px + 260px); }
 
-    .page-header { margin-bottom:28px; }
-    .breadcrumb { font-size:.78rem; color:var(--text-dim); margin-bottom:8px; }
-    .breadcrumb a { color:var(--amber); text-decoration:none; }
-    .page-title { font-family:'Syne',sans-serif; font-weight:700; font-size:1.8rem; }
-    .page-subtitle { color:var(--text-dim); font-size:.85rem; margin-top:4px; }
+    .page-header { margin-bottom:28px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+    .breadcrumb { font-size:0.78rem; color:var(--text-dim); margin-bottom:8px; }
+    .breadcrumb a { color:var(--amber-dark); text-decoration:none; font-weight:600; }
+    .breadcrumb a:hover { text-decoration:underline; }
+    .page-title { font-weight:800; font-size:1.6rem; color:var(--brown); letter-spacing:-0.5px; }
+    .page-subtitle { color:var(--text-dim); font-size:0.82rem; margin-top:3px; }
 
     /* Form Card */
-    .form-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
+    .form-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-sm); }
 
-    .form-section {
-      padding: 24px 28px;
-      border-bottom: 1px solid var(--border);
-    }
-    .form-section:last-child { border-bottom: none; }
+    .form-section { padding:24px 28px; border-bottom:1px solid var(--border-light); }
+    .form-section:last-child { border-bottom:none; }
     .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: .85rem;
-      font-weight: 700;
-      color: var(--amber);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size:0.78rem;
+      font-weight:800;
+      color:var(--amber-dark);
+      text-transform:uppercase;
+      letter-spacing:1px;
+      margin-bottom:20px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding-bottom:12px;
+      border-bottom:2px solid var(--amber-light);
     }
 
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-    .form-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-group.full { grid-column: 1 / -1; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .form-grid.cols-3 { grid-template-columns:1fr 1fr 1fr; }
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+    .form-group.full { grid-column:1/-1; }
 
-    label {
-      font-size: .78rem;
-      font-weight: 500;
-      color: var(--text-dim);
-      letter-spacing: .3px;
-    }
-    .required::after { content: " *"; color: var(--rose); }
+    label { font-size:0.78rem; font-weight:600; color:var(--text-mid); letter-spacing:0.2px; }
+    .required::after { content:" *"; color:var(--rose); }
 
     input, select, textarea {
-      background: var(--input-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 14px;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: .88rem;
-      transition: all .2s;
-      outline: none;
-      width: 100%;
+      background:var(--surface-2);
+      border:1px solid var(--border);
+      border-radius:var(--radius-sm);
+      padding:10px 14px;
+      color:var(--text);
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:0.88rem;
+      transition:all 0.18s;
+      outline:none;
+      width:100%;
     }
     input:focus, select:focus, textarea:focus {
-      border-color: var(--amber);
-      background: var(--input-focus);
-      box-shadow: 0 0 0 3px rgba(244,168,38,0.1);
+      border-color:var(--amber);
+      background:#fffdf7;
+      box-shadow:0 0 0 3px rgba(244,168,38,0.12);
     }
-    input::placeholder, textarea::placeholder { color: var(--text-dim); opacity:.6; }
-    select option { background: var(--navy-mid); color: var(--text); }
-    textarea { resize: vertical; min-height: 80px; }
+    input::placeholder, textarea::placeholder { color:var(--text-dim); opacity:0.7; }
+    select option { background:var(--surface); color:var(--text); }
+    textarea { resize:vertical; min-height:80px; }
 
     /* Form Footer */
     .form-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 28px;
-      border-top: 1px solid var(--border);
-      background: rgba(0,0,0,0.15);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:20px 28px;
+      border-top:1px solid var(--border);
+      background:var(--surface-2);
     }
 
     .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 24px; border-radius: 8px;
-      font-family: 'DM Sans',sans-serif; font-size:.9rem; font-weight:500;
-      cursor: pointer; text-decoration: none; transition: all .2s; border: none;
+      display:inline-flex; align-items:center; gap:8px;
+      padding:11px 24px; border-radius:var(--radius-sm);
+      font-family:'Plus Jakarta Sans',sans-serif; font-size:0.9rem; font-weight:700;
+      cursor:pointer; text-decoration:none; transition:all 0.18s; border:none;
     }
-    .btn-primary { background: var(--amber); color: var(--navy); }
-    .btn-primary:hover { background: var(--amber-dim); transform:translateY(-1px); }
-    .btn-primary:disabled { opacity:.5; cursor:not-allowed; transform:none; }
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-    }
-    .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+    .btn-primary { background:var(--amber); color:var(--brown); box-shadow:0 2px 8px rgba(244,168,38,0.35); }
+    .btn-primary:hover { background:var(--amber-dark); color:#fff; transform:translateY(-1px); box-shadow:0 4px 12px rgba(212,137,26,0.4); }
+    .btn-primary:disabled { opacity:0.55; cursor:not-allowed; transform:none; box-shadow:none; }
+    .btn-ghost { background:transparent; color:var(--text-dim); border:1px solid var(--border); }
+    .btn-ghost:hover { color:var(--text); border-color:#d1d5db; background:var(--bg); }
 
-    /* Success State */
-    .success-overlay {
-      display: none;
-      flex-direction: column; align-items: center;
-      padding: 60px 40px; text-align: center;
+    /* Date warning */
+    .date-warning {
+      margin-top:12px;
+      padding:12px 16px;
+      border-radius:var(--radius-sm);
+      background:#fef3c7;
+      border:1px solid #fcd34d;
+      color:#92400e;
+      font-size:0.82rem;
+      font-weight:500;
+      display:none;
     }
-    .success-icon { font-size: 3.5rem; margin-bottom: 16px; }
-    .success-title { font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:700; margin-bottom:8px; }
-    .success-msg { color:var(--text-dim); font-size:.9rem; margin-bottom:24px; }
+
+    /* Success Overlay */
+    .success-overlay {
+      display:none;
+      flex-direction:column;
+      align-items:center;
+      padding:64px 40px;
+      text-align:center;
+    }
+    .success-icon-wrap {
+      width:72px; height:72px;
+      background:linear-gradient(135deg, #f4a826, #fbbf24);
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:2rem;
+      margin-bottom:20px;
+      box-shadow:0 8px 24px rgba(244,168,38,0.35);
+    }
+    .success-title { font-weight:800; font-size:1.5rem; color:var(--brown); margin-bottom:8px; }
+    .success-msg { color:var(--text-dim); font-size:0.9rem; margin-bottom:28px; max-width:320px; line-height:1.6; }
     .success-actions { display:flex; gap:12px; }
 
     /* Toast */
-    #toast {
-      position:fixed; bottom:24px; right:24px;
-      background:var(--navy-soft); border:1px solid var(--border);
-      border-radius:10px; padding:12px 20px; font-size:.85rem; color:var(--text);
-      display:none; z-index:9999; box-shadow:0 4px 24px rgba(0,0,0,.35);
-    }
+    #toast { position:fixed; bottom:24px; right:24px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 20px; font-size:0.85rem; color:var(--text); display:none; z-index:9999; box-shadow:var(--shadow-lg); }
 
     /* Spinner */
-    .spinner {
-      display:inline-block; width:16px; height:16px;
-      border:2px solid rgba(13,27,42,.3);
-      border-top-color:var(--navy);
-      border-radius:50%; animation:spin .7s linear infinite;
-    }
+    .spinner { display:inline-block; width:16px; height:16px; border:2px solid rgba(43,26,6,0.3); border-top-color:var(--brown); border-radius:50%; animation:spin 0.7s linear infinite; }
     @keyframes spin { to { transform:rotate(360deg); } }
 
     @media(max-width:700px) {
-      .sidebar { width:60px; }
-      .sidebar-logo .brand,.sidebar-logo .tagline,.nav-label,.nav-link span,.sidebar-footer { display:none; }
+      .sidebar { width:62px; }
+      .sidebar-logo img { width:36px; height:36px; }
+      .sidebar-logo .brand-text, .nav-label, .nav-link span, .sidebar-footer { display:none; }
       .nav-link { justify-content:center; padding:12px; }
-      .main { margin-left:60px; padding:20px 14px; }
+      .main { margin-left:62px; padding:20px 14px; }
       .form-grid, .form-grid.cols-3 { grid-template-columns:1fr; }
     }
   </style>
@@ -193,8 +181,11 @@
 
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <div class="brand">CertTrack</div>
-    <div class="tagline">Renewal Management</div>
+    <img src="bark-ornament-logo.jpg" alt="Bark Ornament Logo"/>
+    <div class="brand-text">
+      <div class="brand">Bark Ornament<br>Private Limited</div>
+      <div class="tagline">Certificate Management</div>
+    </div>
   </div>
   <nav class="nav">
     <div class="nav-label">Main</div>
@@ -202,22 +193,23 @@
     <a href="certificates.html" class="nav-link"><span class="icon">📋</span><span>Certificates</span></a>
     <a href="add-certificate.html" class="nav-link active"><span class="icon">➕</span><span>Add Certificate</span></a>
     <div class="nav-label" style="margin-top:8px">Coming Soon</div>
-    <a href="#" class="nav-link" style="opacity:.45;pointer-events:none"><span class="icon">🔄</span><span>Renew</span></a>
-    <a href="#" class="nav-link" style="opacity:.45;pointer-events:none"><span class="icon">⚠️</span><span>Expired</span></a>
-    <a href="#" class="nav-link" style="opacity:.45;pointer-events:none"><span class="icon">📜</span><span>History</span></a>
+    <a href="#" class="nav-link" style="opacity:.4;pointer-events:none"><span class="icon">🔄</span><span>Renew</span></a>
+    <a href="#" class="nav-link" style="opacity:.4;pointer-events:none"><span class="icon">⚠️</span><span>Expired</span></a>
+    <a href="#" class="nav-link" style="opacity:.4;pointer-events:none"><span class="icon">📜</span><span>History</span></a>
   </nav>
   <div class="sidebar-footer">Phase 1 · v1.0</div>
 </aside>
 
 <main class="main">
   <div class="page-header">
-    <div class="breadcrumb"><a href="index.html">Dashboard</a> / Add Certificate</div>
+    <div class="breadcrumb"><a href="index.html">Dashboard</a> › Add Certificate</div>
     <div class="page-title">Add New Certificate</div>
-    <div class="page-subtitle">Fill in the details below to register a new company certificate.</div>
+    <div class="page-subtitle">Fill in the details below to register a new certificate</div>
   </div>
 
   <div class="form-card" id="formCard">
-    <!-- Section 1: Basic Info -->
+
+    <!-- Section 1: Certificate Info -->
     <div class="form-section">
       <div class="section-title">📄 Certificate Information</div>
       <div class="form-grid">
@@ -233,7 +225,7 @@
             <option>Tax / TIN</option>
             <option>Environmental</option>
             <option>Trade License</option>
-            <option>Health & Safety</option>
+            <option>Health &amp; Safety</option>
             <option>ISO Certification</option>
             <option>Insurance</option>
             <option>Import / Export</option>
@@ -253,7 +245,7 @@
 
     <!-- Section 2: Dates -->
     <div class="form-section">
-      <div class="section-title">📅 Dates & Frequency</div>
+      <div class="section-title">📅 Dates &amp; Frequency</div>
       <div class="form-grid cols-3">
         <div class="form-group">
           <label class="required">Issue Date</label>
@@ -275,8 +267,8 @@
           </select>
         </div>
       </div>
-      <div id="dateWarning" style="margin-top:12px;padding:10px 14px;border-radius:8px;background:rgba(224,92,92,.1);border:1px solid rgba(224,92,92,.25);color:#e05c5c;font-size:.82rem;display:none;">
-        ⚠️ The expiry date you entered is in the past — this certificate will be marked as <strong>Expired</strong>.
+      <div class="date-warning" id="dateWarning">
+        ⚠️ The expiry date entered is in the past — this certificate will be marked as <strong>Expired</strong>.
       </div>
     </div>
 
@@ -299,17 +291,17 @@
       </div>
     </div>
 
-    <!-- Section 4: Additional -->
+    <!-- Section 4: Additional Details -->
     <div class="form-section">
       <div class="section-title">📎 Additional Details</div>
       <div class="form-grid">
         <div class="form-group">
           <label>Document Link</label>
-          <input type="url" id="documentLink" placeholder="https://drive.google.com/..."/>
+          <input type="url" id="documentLink" placeholder="https://drive.google.com/…"/>
         </div>
         <div class="form-group">
           <label>Remarks</label>
-          <input type="text" id="remarks" placeholder="Any additional notes..."/>
+          <input type="text" id="remarks" placeholder="Any additional notes…"/>
         </div>
       </div>
     </div>
@@ -324,9 +316,9 @@
 
     <!-- Success Overlay -->
     <div class="success-overlay" id="successOverlay">
-      <div class="success-icon">🎉</div>
+      <div class="success-icon-wrap">🎉</div>
       <div class="success-title">Certificate Added!</div>
-      <div class="success-msg">The certificate has been saved successfully.</div>
+      <div class="success-msg">The certificate has been saved successfully and is now being tracked.</div>
       <div class="success-actions">
         <button class="btn btn-ghost" onclick="resetForm()">➕ Add Another</button>
         <a href="certificates.html" class="btn btn-primary">📋 View All Certificates</a>
@@ -338,9 +330,8 @@
 <div id="toast"></div>
 
 <script>
-  const API_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; // <-- Paste your Web App URL
+  const API_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
-  // Date warning
   document.getElementById("expiryDate").addEventListener("change", function() {
     const warn = document.getElementById("dateWarning");
     const val  = new Date(this.value);
@@ -351,20 +342,19 @@
     const t = document.getElementById("toast");
     t.textContent = msg;
     t.style.display = "block";
-    t.style.borderColor = ok ? "var(--green)" : "var(--rose)";
+    t.style.borderColor = ok ? "#16a34a" : "#dc2626";
     setTimeout(() => { t.style.display = "none"; }, 4000);
   }
 
   function val(id) { return document.getElementById(id).value.trim(); }
 
   async function submitForm() {
-    // Validation
     const required = [
-      { id: "certName",          label: "Certificate Name" },
-      { id: "category",          label: "Category" },
-      { id: "issueDate",         label: "Issue Date" },
-      { id: "expiryDate",        label: "Expiry Date" },
-      { id: "responsiblePerson", label: "Responsible Person" }
+      { id:"certName",          label:"Certificate Name" },
+      { id:"category",          label:"Category" },
+      { id:"issueDate",         label:"Issue Date" },
+      { id:"expiryDate",        label:"Expiry Date" },
+      { id:"responsiblePerson", label:"Responsible Person" }
     ];
     for (const f of required) {
       if (!val(f.id)) {
@@ -376,7 +366,7 @@
 
     const btn = document.getElementById("submitBtn");
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Saving...';
+    btn.innerHTML = '<span class="spinner"></span> Saving…';
 
     const payload = {
       action: "addCertificate",
@@ -397,15 +387,11 @@
     };
 
     try {
-      const res  = await fetch(API_URL, {
-        method: "POST",
-        body:   JSON.stringify(payload)
-      });
+      const res  = await fetch(API_URL, { method:"POST", body:JSON.stringify(payload) });
       const data = await res.json();
       if (data.success) {
-        document.getElementById("successOverlay").style.display = "flex";
-        // Hide all form sections
         document.querySelectorAll(".form-section, .form-footer").forEach(el => el.style.display = "none");
+        document.getElementById("successOverlay").style.display = "flex";
       } else {
         throw new Error(data.error || "Unknown error");
       }
